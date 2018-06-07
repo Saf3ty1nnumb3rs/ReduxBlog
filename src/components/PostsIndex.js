@@ -9,27 +9,23 @@ class PostsIndex extends Component {
     this.props.fetchPosts();
   }
 
-  componentDidMount() {
-    this.props.fetchPosts();
-  }
-
   renderPosts() {
-    _.map(this.props.posts);
-  }
-  render() {
-    console.log(this.props.posts, post => {
+    const posts = this.props.posts;
+    return Object.keys(posts).map(id => {
+      const post = posts[id];
       return (
-        <li className="list-group-item" key={post.id}>
-          {post.title}
+        <li className="list-group-item" key={id}>
+          <Link to={`/posts/${post.id}`}>{post.title}</Link>
         </li>
       );
     });
-
+  }
+  render() {
     return (
       <div>
         <div className="text-xs-right">
           <Link className="btn btn-primary" to="/posts/new">
-            Submit Post
+            Add A Post
           </Link>
         </div>
         <h3>Posts</h3>
@@ -43,4 +39,4 @@ function mapStateToProps(state) {
   return { posts: state.posts };
 }
 //action creator {fetchPosts} passed into an object in the ES6 style - instead of mapDispatchToProps -SAME
-export default connect(null, { fetchPosts })(PostsIndex);
+export default connect(mapStateToProps, { fetchPosts })(PostsIndex);

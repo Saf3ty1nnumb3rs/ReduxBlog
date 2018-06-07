@@ -10,7 +10,7 @@ import PostsIndex from "./components/PostsIndex";
 import PostsShow from "./components/PostsShow";
 import NewPost from "./components/NewPost";
 
-const createStoreWithMiddleware = applyMiddleware()(createStore);
+const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
